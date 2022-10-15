@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body bgcolor="yellow">
+    <h2>
+        This is my first website
+        <div>
+            Where i will show you different arduino projects
+        </div>
+        <div>
+            Which are really good to know
+        </div>
+        <div>
+            I will show you top 5 best projects of arduino
+        </div>
+        <div>
+            which are:
+            <ol>
+                <h3>
+                    <li>
+                        Line follower car
+                    </li>
+                    <li>
+                        Obstacle avoiding car
+                    </li>
+                    <li>
+                        Gesture control car
+                    </li>
+                    <li>
+                        Voice controlled car
+                    </li>
+
+                    <li>
+                        Bluetooth controlled car
+                    </li>
+
+                </h3>
+            </ol>
+        </div>
+    </h2>
+    <div>
+        <h3>
+            I will also show you the codeing of these car
+
+        </h3>
+    </div>
+    <div>
+        <h3>
+            These car are very easy to make
+        </h3>
+    </div>
+    <div>
+        <h2>
+            Now i will show you the coding of these car
+        </h2>
+    </div>
+    <div>
+        <h1>
+            1.Line follower car
+        </h1>
+    </div>
+    <div>
+        <h1>
+            code is here:-
+
+        </h1>
+
+    </div>
+    <div>
+        <h3>
+            //ARDUINO LINE FOLLOWING CAR//<br>
+            // YOU HAVE TO INSTALL THE AFMOTOR LIBRARY BEFORE UPLOAD THE CODE//<br>
+            // GO TO SKETCH >> INCLUDE LIBRARY >> ADD .ZIP LIBRARY >> SELECT AF MOTOR ZIP FILE //<br>
+
+            //including the libraries<br>
+            #include <AFMotor.h><br>
+
+                //defining pins and variables<br>
+                #define left A0<br>
+                #define right A1<br>
+
+                //defining motors<br>
+                AF_DCMotor motor1(1, MOTOR12_1KHZ); <br>
+                AF_DCMotor motor1(1, MOTOR12_1KHZ); <br>
+                AF_DCMotor motor1(1, MOTOR12_1KHZ); <br>
+                AF_DCMotor motor2(2, MOTOR12_1KHZ);<br>
+                AF_DCMotor motor3(3, MOTOR34_1KHZ);<br>
+                AF_DCMotor motor4(4, MOTOR34_1KHZ);<br>
+
+
+
+                void setup() {<br>
+                //declaring pin types<br>
+                pinMode(left,INPUT);<br>
+                pinMode(right,INPUT);<br>
+                //begin serial communication<br>
+                Serial.begin(9600);<br>
+
+                }<br>
+
+                void loop(){<br>
+                //printing values of the sensors to the serial monitor<br>
+                Serial.println(digitalRead(left));<br>
+
+                Serial.println(digitalRead(right));<br>
+
+                //line detected by both<br>
+                if(digitalRead(left)==0 && digitalRead(right)==0){<br>
+                //Forward<br>
+                motor1.run(FORWARD);<br>
+                motor1.setSpeed(150);<br>
+                motor2.run(FORWARD);<br>
+                motor2.setSpeed(150);<br>
+                motor3.run(FORWARD);<br>
+                motor3.setSpeed(150);<br>
+                motor4.run(FORWARD);<br>
+                motor4.setSpeed(150);<br>
+                }<br>
+                //line detected by left sensor<br>
+                else if(digitalRead(left)==0 && !analogRead(right)==0){<br>
+                //turn left<br>
+                motor1.run(FORWARD);<br>
+                motor1.setSpeed(200);<br>
+                motor2.run(FORWARD);<br>
+                motor2.setSpeed(200);<br>
+                motor3.run(BACKWARD);<br>
+                motor3.setSpeed(200);<br>
+                motor4.run(BACKWARD);<br>
+                motor4.setSpeed(200);<br>
+
+                }<br>
+                //line detected by right sensor<br>
+                else if(!digitalRead(left)==0 && digitalRead(right)==0){<br>
+                //turn right<br>
+                motor1.run(BACKWARD);<br>
+                motor1.setSpeed(200);<br>
+                motor2.run(BACKWARD);<br>
+                motor2.setSpeed(200);<br>
+                motor3.run(FORWARD);<br>
+                motor3.setSpeed(200);<br>
+                motor4.run(FORWARD);<br>
+                motor4.setSpeed(200);<br>
+
+                }<br>
+                //line detected by none<br>
+                else if(!digitalRead(left)==0 && !digitalRead(right)==0){<br>
+                //stop<br>
+                motor1.run(RELEASE);<br>
+                motor1.setSpeed(0);<br>
+                motor2.run(RELEASE);<br>
+                motor2.setSpeed(0);<br>
+                motor3.run(RELEASE);<br>
+                motor3.setSpeed(0);<br>
+                motor4.run(RELEASE);<br>
+                motor4.setSpeed(0);<br>
+
+                }<br>
+
+                }<br>
+        </h3>
+    </div>
+    <div>
+        <h1>
+            Now the code is done
+        </h1>
+    </div>
+    <div>
+        <h1>
+            Now the code for
+
+        </h1>
+    </div>
+    <div>
+        <h1>
+            2.Obstacle avoiding car
+        </h1>
+
+    </div>
+    <div>
+        <h2>
+            //ARDUINO OBSTACLE AVOIDING CAR//<br>
+            // Before uploading the code you have to install the necessary library//<br>
+            //AFMotor Library https://learn.adafruit.com/adafruit-motor-shield/library-install //<br>
+            //NewPing Library https://github.com/livetronic/Arduino-NewPing// <br>
+            //Servo Library https://github.com/arduino-libraries/Servo.git //<br>
+            // To Install the libraries go to sketch >> Include Library >> Add .ZIP File >> Select the Downloaded ZIP
+            files From the Above links //<br>
+
+
+            #include <AFMotor.h> <br>
+                #include <NewPing.h><br>
+                    #include <Servo.h> <br>
+
+                        #define TRIG_PIN A0 <br>
+                        #define ECHO_PIN A1 <br>
+                        #define MAX_DISTANCE 200 <br>
+                        #define MAX_SPEED 190 // sets speed of DC motors<br>
+                        #define MAX_SPEED_OFFSET 20<br>
+
+                        NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE); <br>
+
+                        AF_DCMotor motor1(1, MOTOR12_1KHZ); <br>
+                        AF_DCMotor motor2(2, MOTOR12_1KHZ);<br>
+                        AF_DCMotor motor3(3, MOTOR34_1KHZ);<br>
+                        AF_DCMotor motor4(4, MOTOR34_1KHZ);<br>
+                        Servo myservo;<br>
+
+                        boolean goesForward=false;<br>
+                        int distance = 100;<br>
+                        int speedSet = 0;<br>
+
+                        void setup() {<br>
+
+                        myservo.attach(10); <br>
+                        myservo.write(115); <br>
+                        delay(2000);<br>
+                        distance = readPing();<br>
+                        delay(100);<br>
+                        distance = readPing();<br>
+                        delay(100);<br>
+                        distance = readPing();<br>
+                        delay(100);<br>
+                        distance = readPing();<br>
+                        delay(100);<br>
+                        }<br>
+
+                        void loop() {<br>
+                        int distanceR = 0;<br>
+                        int distanceL = 0;<br>
+                        delay(40);<br>
+
+                        if(distance<=15)<br>
+                            {<br>
+                            moveStop();<br>
+                            delay(100);<br>
+                            moveBackward();<br>
+                            delay(300);<br>
+                            moveStop();<br>
+                            delay(200);<br>
+                            distanceR = lookRight();<br>
+                            delay(200);<br>
+                            distanceL = lookLeft();<br>
+                            delay(200);<br>
+
+                            if(distanceR>=distanceL)<br>
+                            {<br>
+                            turnRight();<br>
+                            moveStop();<br>
+                            }else<br>
+                            {<br>
+                            turnLeft();<br>
+                            moveStop();<br>
+                            }<br>
+                            }else<br>
+                            {<br>
+                            moveForward();<br>
+                            }<br>
+                            distance = readPing();<br>
+                            }<br>
+
+                            int lookRight()<br>
+                            {<br>
+                            myservo.write(50); <br>
+                            delay(500);<br>
+                            int distance = readPing();<br>
+                            delay(100);<br>
+                            myservo.write(115);<br>
+                            return distance;<br>
+                            }<br>
+
+                            int lookLeft()<br>
+                            {<br>
+                            myservo.write(170); <br>
+                            delay(500);<br>
+                            int distance = readPing();<br>
+                            delay(100);<br>
+                            myservo.write(115); <br>
+                            return distance;<br>
+                            delay(100);<br>
+                            }<br>
+
+                            int readPing() { <br>
+                            delay(70);<br>
+                            int cm = sonar.ping_cm();<br><br>
+                            if(cm==0)<br>
+                            {<br>
+                            cm = 250;<br>
+                            }<br>
+                            return cm;<br>
+                            }<br>
+
+                            void moveStop() {<br>
+                            motor1.run(RELEASE); <br>
+                            motor2.run(RELEASE);<br>
+                            motor3.run(RELEASE);<br>
+                            motor4.run(RELEASE);<br>
+                            } <br>
+
+                            void moveForward() {<br>
+
+                            if(!goesForward)<br>
+                            {<br>
+                            goesForward=true;<br>
+                            motor1.run(FORWARD); <br>
+                            motor2.run(FORWARD);<br>
+                            motor3.run(FORWARD); <br>
+                            motor4.run(FORWARD); <br>
+                            for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) // slowly bring the speed up to avoid
+                                loading down the batteries too quickly<br>
+                                {<br>
+                                motor1.setSpeed(speedSet);<br>
+                                motor2.setSpeed(speedSet);<br>
+                                motor3.setSpeed(speedSet);<br>
+                                motor4.setSpeed(speedSet);<br>
+                                delay(5);<br>
+                                }<br>
+                                }<br>
+                                }<br>
+
+                                void moveBackward() {<br>
+                                goesForward=false;<br>
+                                motor1.run(BACKWARD); <br>
+
+                                motor2.run(BACKWARD);<br>
+                                motor3.run(BACKWARD);<br>
+                                motor4.run(BACKWARD); <br>
+                                for (speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) // slowly bring the speed up to
+                                    avoid loading down the batteries too quickly<br>
+                                    {<br>
+                                    motor1.setSpeed(speedSet);<br>
+                                    motor2.setSpeed(speedSet);<br>
+                                    motor3.setSpeed(speedSet);<br>
+                                    motor4.setSpeed(speedSet);<br>
+                                    delay(5);<br>
+                                    }<br>
+                                    } <br>
+
+                                    void turnRight() {<br>
+                                    motor1.run(FORWARD);<br>
+                                    motor2.run(FORWARD);<br>
+                                    motor3.run(BACKWARD);<br>
+                                    motor4.run(BACKWARD); <br>
+                                    delay(500);<br>
+                                    motor1.run(FORWARD); <br>
+                                    motor2.run(FORWARD);<br>
+                                    motor3.run(FORWARD);<br>
+                                    motor4.run(FORWARD); <br>
+                                    } <br>
+
+                                    void turnLeft() {<br>
+                                    motor1.run(BACKWARD);<br>
+                                    motor2.run(BACKWARD); <br>
+                                    motor3.run(FORWARD);<br>
+                                    motor4.run(FORWARD); <br>
+                                    delay(500);<br>
+                                    motor1.run(FORWARD); <br>
+                                    motor2.run(FORWARD);<br>
+                                    motor3.run(FORWARD);<br>
+                                    motor4.run(FORWARD);<br>
+                                    } <br>
+        </h2>
+    </div>
+    <div>
+        <h1>
+            Now the new code for
+        </h1>
+
+    </div>
+    <div>
+        <h1>
+            3.Gesture control car
+        </h1>
+
+    </div>
+    <div>
+        <h2>
+            but Gesture control car has 2 code for
+        </h2>
+
+    </div>
+    <div>
+        <h2>
+            <ol>
+                <li>
+                    Transmiter
+                </li>
+                <li>
+                    reciver
+                </li>
+            </ol>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            First I am showing the code for Transmiter
+        </h2>
+    </div>
+    <div>
+        <h2>
+            //Arduino Gesture Control Robot<br>
+            //Reciver Circuit <br>
+            //Created BY DIY Builder<br>
+            //You need to install the required libraries before uploading the code.<br>
+            //To install the libraries first download the library's zip file then go to sketch > include Library > ADD
+            .ZIP File > Select the downloaded<br>
+            // libary's Zip file and you're done now. You can upload the the sketch now.<br>
+            // For more details you can contact me here www.instagram.com/diy.builder<br>
+
+
+            #include<SPI.h><br>
+                #include<nRF24L01.h><br>
+                    #include<RF24.h><br>
+
+                        const int x_out = A0;<br>
+                        const int y_out = A1;<br>
+                        RF24 radio(8,10);<br>
+                        const byte address[6] = "00001";<br>
+                        struct data{<br>
+                        int xAxis;<br>
+                        int yAxis;<br>
+
+                        };<br>
+                        data send_data;<br>
+
+
+
+                        void setup() {<br>
+                        // put your setup code here, to run once:<br>
+                        radio.begin();<br>
+                        radio.openWritingPipe(address);<br>
+                        radio.setPALevel(RF24_PA_MIN);<br>
+                        radio.setDataRate(RF24_250KBPS);<br>
+                        radio.stopListening();<br>
+                        }<br>
+
+                        void loop() {<br>
+                        // put your main code here, to run repeatedly:<br>
+                        send_data.xAxis = analogRead(x_out);<br>
+                        send_data.yAxis = analogRead(y_out);<br>
+                        radio.write(&send_data, sizeof(data));<br>
+                        }<br>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            Now I am showing the code for reciver
+        </h2>
+    </div>
+    <div>
+        <h2>
+            //Arduino Gesture Control Robot<br>
+            //Reciver Circuit <br>
+            //Created BY DIY Builder<br>
+            //You need to install the required libraries before uploading the code.<br>
+            //To install the libraries first download the library from here https://github.com/nRF24/RF24 then go to
+            sketch > include Library > ADD .ZIP File > Select the downloaded<br>
+            // libary's Zip file and you're done now. You can upload the the sketch now.<br>
+            // For more details you can contact me here www.instagram.com/diy.builder<br>
+
+
+            #include<SPI.h><br>
+                #include<nRF24L01.h><br>
+                    #include<RF24.h><br>
+
+                        int ENA = 3;<br>
+                        int ENB = 9;<br>
+                        int MotorA1 = 4;<br>
+                        int MotorA2 = 5;<br>
+                        int MotorB1 = 6;<br>
+                        int MotorB2 = 7;<br>
+
+                        RF24 radio(8, 10);<br>
+
+                        const byte address[6] = "00001";<br>
+
+                        struct data {<br>
+                        int xAxis;<br>
+                        int yAxis;<br>
+
+                        };<br>
+                        data receive_data;<br>
+
+
+
+                        void setup() {<br>
+                        // put your setup code here, to run once:<br>
+                        Serial.begin(9600);<br>
+                        radio.begin();<br>
+                        radio.openReadingPipe(0,address);<br>
+                        radio.setPALevel(RF24_PA_MIN);<br>
+                        radio.setDataRate(RF24_250KBPS);<br>
+                        radio.startListening();<br>
+                        pinMode(ENA, OUTPUT);<br>
+                        pinMode(ENB, OUTPUT);<br>
+                        pinMode(MotorA1, OUTPUT);<br>
+                        pinMode(MotorA2, OUTPUT);<br>
+                        pinMode(MotorB1, OUTPUT);<br>
+                        pinMode(MotorB2, OUTPUT);<br>
+                        }<br>
+
+
+                        void loop() {<br>
+                        // put your main code here, to run repeatedly<br>
+                        while(radio.available()) {<br>
+                        radio.read(&receive_data, sizeof(data));<br>
+                        if(receive_data.yAxis > 400) {<br>
+                        digitalWrite(MotorA1, LOW);<br>
+                        digitalWrite(MotorA2, HIGH);<br>
+                        digitalWrite(MotorB1, HIGH);<br>
+                        digitalWrite(MotorB2, LOW);<br>
+                        analogWrite(ENA, 150);<br>
+                        analogWrite(ENB, 150);<br>
+                        <br>
+                        }else if(receive_data.yAxis < 320) {<br>
+                            digitalWrite(MotorA1, HIGH);<br>
+                            digitalWrite(MotorA2, LOW);<br>
+                            digitalWrite(MotorB1, LOW);<br>
+                            digitalWrite(MotorB2, HIGH);<br>
+                            analogWrite(ENA, 150);<br>
+                            analogWrite(ENB, 150);<br>
+                            } else if(receive_data.xAxis < 320){<br>
+                                digitalWrite(MotorA1, HIGH);<br>
+                                digitalWrite(MotorA2, LOW);<br>
+                                digitalWrite(MotorB1, HIGH);<br>
+                                digitalWrite(MotorB2, LOW);<br>
+                                analogWrite(ENA, 150);<br>
+                                analogWrite(ENB, 150);<br>
+                                }else if(receive_data.xAxis > 400){<br>
+                                digitalWrite(MotorA1, LOW);<br>
+                                digitalWrite(MotorA2, HIGH);<br>
+                                digitalWrite(MotorB1, LOW);<br>
+                                digitalWrite(MotorB2, HIGH);<br>
+                                analogWrite(ENA, 150);<br>
+                                analogWrite(ENB, 150);<br>
+                                }else {<br>
+                                digitalWrite(MotorA1, LOW);<br>
+                                digitalWrite(MotorA2, LOW);<br>
+                                digitalWrite(MotorB1, LOW);<br>
+                                digitalWrite(MotorB2, LOW);<br>
+                                analogWrite(ENA, 0);<br>
+                                analogWrite(ENB, 0);<br>
+                                }<br>
+                                }<br>
+                                }<br>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            Now i am showing the code for
+        </h2>
+    </div>
+    <div>
+        <h2>
+            Voice controlled car
+        </h2>
+    </div>
+    <div>
+        <h2>
+            /*Arduino Voice Control Robot <br>
+            *Version 1.0<br>
+            *Created By DIY Builder<br>
+            *Before Uploading the sketch you must install the required libraries first. <br>
+            *Unless you'll get compilation error message.<br>
+            *Also remove the bluetooth and servo connector before uploading the sketch.<br>
+            *You can contact me here https://www.instagram.com/diy.builder/<br>
+            */<br>
+
+
+
+
+            #include <AFMotor.h><br>
+                #include <Servo.h><br>
+
+                    String command;<br>
+
+                    AF_DCMotor motor1(1, MOTOR12_1KHZ);<br>
+                    AF_DCMotor motor2(2, MOTOR12_1KHZ);<br>
+                    AF_DCMotor motor3(3, MOTOR34_1KHZ);<br>
+                    AF_DCMotor motor4(4, MOTOR34_1KHZ);<br>
+
+                    Servo myservo;<br>
+
+
+
+                    void setup() {<br>
+
+                    Serial.begin(9600);<br>
+                    myservo.attach(10);<br>
+                    myservo.write(90);<br>
+
+                    }<br>
+
+                    void loop() {<br>
+
+                    delay(10);<br>
+                    while(Serial.available()) {<br>
+                    command = ""; <br>
+                    command = Serial.readString();<br>
+
+                    Serial.print(command);<br>
+                    }
+                    if(command == "*move forward#"){<br>
+                    forward();<br>
+                    }else if(command == "*move backward#"){<br>
+                    backward();<br>
+                    }else if(command == "*turn left#"){<br>
+                    left();<br>
+                    }else if(command == "*turn right#"){<br>
+                    right();<br>
+                    }else if(command == "*stop#") {<br>
+                    Stop();<br>
+                    }<br>
+                    command = "";
+                    }<br>
+
+                    void forward() {<br>
+                    motor1.setSpeed(255);<br>
+                    motor1.run(FORWARD);<br>
+                    motor2.setSpeed(255);<br>
+                    motor2.run(FORWARD);<br>
+                    motor3.setSpeed(255);<br>
+
+                    motor3.run(FORWARD);<br>
+                    motor4.setSpeed(255);<br>
+                    motor4.run(FORWARD);<br>
+                    delay(1500);<br>
+                    motor1.run(RELEASE);<br>
+                    motor2.run(RELEASE);<br>
+                    motor3.run(RELEASE);<br>
+                    motor4.run(RELEASE);<br>
+
+                    }<br>
+
+                    void backward() {<br>
+                    motor1.setSpeed(255);<br>
+                    motor1.run(BACKWARD);<br>
+                    motor2.setSpeed(255);<br>
+                    motor2.run(BACKWARD);<br>
+                    motor3.setSpeed(255);<br>
+                    motor3.run(BACKWARD);<br>
+                    motor4.setSpeed(255);<br>
+                    motor4.run(BACKWARD);<br>
+                    delay(1500);<br>
+                    motor1.run(RELEASE);<br>
+                    motor2.run(RELEASE);<br>
+                    motor3.run(RELEASE);<br>
+                    motor4.run(RELEASE);<br>
+                    }<br>
+
+                    void left() {<br>
+                    myservo.write(180);<br>
+                    delay(500);<br>
+                    myservo.write(90);<br>
+                    delay(500);<br>
+                    motor1.setSpeed(255);<br>
+                    motor1.run(FORWARD);<br>
+                    motor2.setSpeed(255);<br>
+                    motor2.run(BACKWARD);<br>
+                    motor3.setSpeed(255);<br>
+                    motor3.run(FORWARD);<br>
+                    motor4.setSpeed(255);<br>
+                    motor4.run(BACKWARD);<br>
+                    delay(500);<br>
+                    motor1.run(RELEASE);<br>
+                    motor2.run(RELEASE);<br>
+                    motor3.run(RELEASE);<br>
+                    motor4.run(RELEASE);<br>
+                    }<br>
+
+                    void right() {<br>
+                    myservo.write(0);<br>
+                    delay(500);<br>
+                    myservo.write(90);<br>
+                    delay(500);<br>
+                    motor1.setSpeed(255);<br>
+                    motor1.run(BACKWARD);<br>
+                    motor2.setSpeed(255);<br>
+                    motor2.run(FORWARD);<br>
+                    motor3.setSpeed(255);<br>
+                    motor3.run(BACKWARD);<br>
+                    motor4.setSpeed(255);<br>
+                    motor4.run(FORWARD);<br>
+                    delay(500);<br>
+                    motor1.run(RELEASE);<br>
+                    motor2.run(RELEASE);<br>
+                    motor3.run(RELEASE);<br>
+                    motor4.run(RELEASE);<br>
+                    }<br>
+
+                    void Stop() {<br>
+                    motor1.run(RELEASE);<br>
+                    motor2.run(RELEASE);<br>
+                    motor3.run(RELEASE);<br>
+                    motor4.run(RELEASE);<br>
+                    }<br>
+        </h2>
+    </div>
+    <div>
+        <h2>
+            Now our last code for
+        </h2>
+    </div>
+    <div>
+        <h2>
+            5.Bluetooth controlled car
+        </h2>
+    </div>
+    <div>
+        <h2>
+            //Arduino Bluetooth Controlled Car<br>
+//Before uploading the code you have to install the necessary library<br>
+//Note - Disconnect the Bluetooth Module before hiting the upload button otherwise you'll get compilation error message.<br>
+//AFMotor Library https://learn.adafruit.com/adafruit-motor-shield/library-install <br>
+//After downloading the library open Arduino IDE >> go to sketch >> Include Libray >> ADD. ZIP Libray >> Select the downloaded <br>
+//ZIP File >> Open it >> Done<br>
+//Now You Can Upload the Code without any problem but make sure the bt module isn't connected with Arduino while uploading code<br>
+
+#include <AFMotor.h><br>
+
+//initial motors pin<br>
+AF_DCMotor motor1(1, MOTOR12_1KHZ); <br>
+AF_DCMotor motor2(2, MOTOR12_1KHZ); <br>
+AF_DCMotor motor3(3, MOTOR34_1KHZ);<br>
+AF_DCMotor motor4(4, MOTOR34_1KHZ);<br>
+
+char command; <br>
+
+void setup() <br>
+{       <br>
+  Serial.begin(9600);  //Set the baud rate to your Bluetooth module.<br>
+}<br>
+
+void loop(){<br>
+  if(Serial.available() > 0){ <br>
+    command = Serial.read(); <br>
+    Stop(); //initialize with motors stoped<br>
+    //Change pin mode only if new command is different from previous.   <br>
+    //Serial.println(command);<br>
+    switch(command){<br>
+    case 'F':  <br>
+      forward();<br>
+      break;<br>
+    case 'B':  <br>
+       back();<br>
+      break;<br>
+    case 'L': <br> 
+      left();<br>
+      break;<br>
+    case 'R':<br>
+      right();<br>
+      break;<br>
+    }<br>
+  } <br>
+}<br>
+<br>
+void forward()<br>
+{<br>
+  motor1.setSpeed(255); //Define maximum velocity<br>
+  motor1.run(FORWARD); //rotate the motor clockwise<br>
+  motor2.setSpeed(255); //Define maximum velocity<br>
+  motor2.run(FORWARD); //rotate the motor clockwise<br>
+  motor3.setSpeed(255);//Define maximum velocity<br>
+  motor3.run(FORWARD); //rotate the motor clockwise<br>
+  motor4.setSpeed(255);//Define maximum velocity<br>
+  motor4.run(FORWARD); //rotate the motor clockwise<br>
+}<br>
+
+void back()<br>
+{<br>
+  motor1.setSpeed(255); //Define maximum velocity<br>
+  motor1.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor2.setSpeed(255); //Define maximum velocity<br>
+  motor2.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor3.setSpeed(255); //Define maximum velocity<br>
+  motor3.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor4.setSpeed(255); //Define maximum velocity<br>
+  motor4.run(BACKWARD); //rotate the motor anti-clockwise<br>
+}<br>
+
+void left()<br>
+{<br>
+  motor1.setSpeed(255); //Define maximum velocity<br>
+  motor1.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor2.setSpeed(255); //Define maximum velocity<br>
+  motor2.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor3.setSpeed(255); //Define maximum velocity<br>
+  motor3.run(FORWARD);  //rotate the motor clockwise<br>
+  motor4.setSpeed(255); //Define maximum velocity<br>
+  motor4.run(FORWARD);  //rotate the motor clockwise<br>
+}<br>
+
+void right()<br>
+{<br>
+  motor1.setSpeed(255); //Define maximum velocity<br>
+  motor1.run(FORWARD); //rotate the motor clockwise<br>
+  motor2.setSpeed(255); //Define maximum velocity<br>
+  motor2.run(FORWARD); //rotate the motor clockwise<br>
+  motor3.setSpeed(255); //Define maximum velocity<br>
+  motor3.run(BACKWARD); //rotate the motor anti-clockwise<br>
+  motor4.setSpeed(255); //Define maximum velocity<br>
+  motor4.run(BACKWARD); //rotate the motor anti-clockwise<br>
+} <br>
+
+void Stop()<br>
+{<br>
+  motor1.setSpeed(0); //Define minimum velocity<br>
+  motor1.run(RELEASE); //stop the motor when release the button<br>
+  motor2.setSpeed(0); //Define minimum velocity<br>
+  motor2.run(RELEASE); //rotate the motor clockwise<br>
+  motor3.setSpeed(0); //Define minimum velocity<br>
+  motor3.run(RELEASE); //stop the motor when release the button<br>
+  motor4.setSpeed(0); //Define minimum velocity<br>
+  motor4.run(RELEASE); //stop the motor when release the button<br>
+}<br>
+        </h2>
+    </div>
+    <div>
+        <h1>
+            These all are the code for our project
+        </h1>
+    </div>
+    <div>
+        <h1>
+            This is my youtube channel logo
+        </h1>
+    </div>
+    <div>
+        <h1>
+            <img src="channels4_profile.jpg" alt="Network connection error">
+        </h1>
+    </div>
+    <h1>
+        <a href="https://www.youtube.com/channel/UC4yMHCBXTdikDoJE9vHvCWA/videos" target="_blank"> This is my youtube channel link</a>
+    </h1>
+    <div>
+        <h1>
+            Pls like,share and subscribe to my youtube channel
+        </h1>
+    </div>
+    
+    
+
+
+
+</body>
+
+</html>
